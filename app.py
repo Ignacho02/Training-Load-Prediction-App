@@ -1,4 +1,3 @@
-pip install gdown
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -40,18 +39,22 @@ st.sidebar.image("Logo.jpg", width=110)
 # ----------------------------
 # Load model, scalers and preprocessor
 # ----------------------------
-file_id = "1Fmw782ET3fxqZphucD-PKrLFjFa6Xccq"
-url = f"https://drive.google.com/uc?id={file_id}"
-output = "final_rf_tuned_fast_model.pkl"
+try:
+    import gdown
+except ImportError:
+    import subprocess
+    subprocess.check_call(["pip", "install", "gdown"])
+    import gdown
 
-if not os.path.exists(output):
-    print("Descargando el modelo desde Google Drive...")
-    gdown.download(url, output, quiet=False)
-else:
-    print("Modelo ya descargado, usando archivo local.")
+MODEL_FILE = "final_rf_tuned_fast_model.pkl"
+GOOGLE_DRIVE_ID = "1Fmw782ET3fxqZphucD-PKrLFjFa6Xccq"
+URL = f"https://drive.google.com/uc?id={GOOGLE_DRIVE_ID}"
 
-# Cargar el modelo
-rf = joblib.load(output)
+if not os.path.exists(MODEL_FILE):
+    print("Downloading model from Google Drive...")
+    gdown.download(URL, MODEL_FILE, quiet=False)
+
+rf = joblib.load(MODEL_FILE)
 #rf = joblib.load("final_rf_tuned_fast_model.pkl")
 preprocessor = joblib.load("preprocessor.pkl")
 output_columns = joblib.load("output_columns.pkl")
@@ -342,4 +345,5 @@ elif page == "📈 Weekly Progress":
             ax.legend(handles=legend_elements, loc="upper left")
 
             st.pyplot(fig)
+
 
