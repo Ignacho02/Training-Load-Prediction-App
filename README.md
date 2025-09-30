@@ -5,6 +5,8 @@
 
  Try it here: https://training-load-prediction-app-bmpbtxifbptlxfuihytuy6.streamlit.app/
 
+ ![App Demo](Streamlit%20-%20Google%20Chrome%202025-09-30%2018-23-34.gif)
+
  ## Table of Contents
 
  1. [Overview](#overview)
