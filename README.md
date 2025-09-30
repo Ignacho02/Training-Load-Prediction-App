@@ -3,6 +3,8 @@
  ![Python](https://img.shields.io/badge/python-3.10-blue?logo=python)
  ![Streamlit](https://img.shields.io/badge/streamlit-1.28-orange?logo=streamlit)
 
+ Try it here: https://training-load-prediction-app-bmpbtxifbptlxfuihytuy6.streamlit.app/
+
  ## Table of Contents
 
  1. [Overview](#overview)
@@ -10,15 +12,14 @@
  3. [Installation](#installation)
  4. [Model Download](#model-download)
  5. [Usage](#usage)
- 6. [Features](#features)
- 7. [Dependencies](#dependencies)
- 8. [Contact](#contact)
+ 6. [Dependencies](#dependencies)
+ 7. [Contact](#contact)
 
  ---
 
  ## Overview
 
- The **Training-Load-Prediction-App** minimizes the gap between prescribed external training load and actual load for football players. By addressing this, the app helps:
+The **Training-Load-Prediction-App** main goal is to minimize the gap between prescribed external training load and actual perceived external load for football players. By addressing this, this project helps:
 
  - Optimize player performance  
  - Reduce injury risk  
@@ -27,7 +28,21 @@
  The repository contains both the **modeling pipeline** and an interactive **Streamlit application**.
 
  ---
+ The aplication contains 3 main tabs:
+ 
+ 1. **Session Prediction**  
+    - Predicts the actual load of upcoming sessions and individual tasks per player.  
+    - Compares predictions with the team’s most recent match averages (only taking into account players with at least 60 min).  
+    - Visualizes results in a clear and interactive graph.
 
+ 2. **Player vs Team Comparison**  
+    - Shows how an individual player behaves relative to the team average over the last 10 sessions.  
+    - Useful for monitoring individual trends, identifying outliers, and adjusting training loads accordingly.
+
+ 3. **Weekly Microcycle Overview**  
+    - Displays the full weekly microcycle, including the 6 sessions plus the previous match.  
+    - Provides context to locate each session’s demand within the broader weekly structure.  
+ 
  ## Repository Structure
 
  | Folder / File | Description |
