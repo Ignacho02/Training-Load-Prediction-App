@@ -19,7 +19,9 @@
 
  ## Overview
 
-The **Training-Load-Prediction-App** main goal is to minimize the gap between prescribed external training load and actual perceived external load for football players. By addressing this, this project helps:
+The **Training-Load-Prediction-App** leverages a Random Forest predictive model trained on player-specific and team-level training data, using a preprocessing pipeline that includes feature selection and normalization. The model predicts the external load that each player will likely experience in upcoming sessions. 
+
+The main goal is to minimize the gap between prescribed external training load and actual perceived external load for football players. By addressing this, this project helps:
 
  - Optimize player performance  
  - Reduce injury risk  
@@ -49,7 +51,7 @@ The **Training-Load-Prediction-App** main goal is to minimize the gap between pr
  |---------------|-------------|
  | `.gitattributes` | Git configuration file for attributes |
  | `Data_generation/` | Scripts to generate synthetic or processed datasets |
- | `Final_model_deployment/` | Deployment scripts and artifacts (chosen model)|
+ | `Final_model_deployment/` | Deployment scripts and artifacts (Most optimal tuned Random Forest model)|
  | `Logo.jpg` | Personal logo |
  | `Modelling/` | EDA, feature engineering, and model development scripts |
  | `README.md` | This file |
@@ -57,7 +59,7 @@ The **Training-Load-Prediction-App** main goal is to minimize the gap between pr
  | `feature_columns.pkl` | Pickle file storing model feature columns |
  | `output_columns.pkl` | Pickle file storing model output columns |
  | `preprocessor.pkl` | Pickle file for preprocessing pipeline |
- | `synthetic_full_dataset.csv` | Sample dataset for testing |
+ | `synthetic_full_dataset.csv` | Sample dataset for testing (Obtained from Data_generation) |
 
  > ⚠️ **Note:** The trained model (`final_rf_tuned_fast_model.pkl`) is too large for GitHub and is automatically downloaded from Google Drive at runtime.
 
