@@ -87,27 +87,31 @@ if page == "📋 Session Builder":
 
     st.subheader("📋 Session Info")
     teams = ["First Team", "B Team", "C Team", "U23", "U19"]
-    team_options = ["Select Team"] + teams
-    current_team_index = team_options.index(st.session_state.selected_team) if st.session_state.selected_team in team_options else 0
-    selected_team_input = st.selectbox("Team", team_options, index=current_team_index)
-    if selected_team_input != "Select Team":
-        st.session_state.selected_team = selected_team_input
-
-    selected_date_input = st.date_input("Date", value=st.session_state.selected_date)
-    st.session_state.selected_date = pd.to_datetime(selected_date_input)
+    
+    col_team, col_date = st.columns(2)
+    with col_team:
+        team_options = ["Select Team"] + teams
+        current_team_index = team_options.index(st.session_state.selected_team) if st.session_state.selected_team in team_options else 0
+        selected_team_input = st.selectbox("Team", team_options, index=current_team_index)
+        if selected_team_input != "Select Team":
+            st.session_state.selected_team = selected_team_input
+    with col_date:
+        selected_date_input = st.date_input("Date", value=st.session_state.selected_date)
+        st.session_state.selected_date = pd.to_datetime(selected_date_input)
 
     # Task input form
     st.subheader("➕ Add a New Task")
     task_types = ['Select Task Type', 'Possession', 'Conditioned Game', 'Transition', 'Passing Drill', 'Game / Warm-up']
-    current_task_index = task_types.index(st.session_state.selected_task_type) if st.session_state.selected_task_type in task_types else 0
-    selected_task_input = st.selectbox("Task Type", task_types, index=current_task_index)
-    if selected_task_input != "Select Task Type":
-        st.session_state.selected_task_type = selected_task_input
-
+    
     col1, col2, col3 = st.columns(3)
     with col1:
-        sets = st.number_input("Number of Sets", 1, 20, 1)
+        current_task_index = task_types.index(st.session_state.selected_task_type) if st.session_state.selected_task_type in task_types else 0
+        selected_task_input = st.selectbox("Task Type", task_types, index=current_task_index)
+        if selected_task_input != "Select Task Type":
+            st.session_state.selected_task_type = selected_task_input
     with col2:
+        sets = st.number_input("Number of Sets", 1, 20, 1)
+    with col3:
         set_duration = st.number_input("Set Duration (min)", 1, 60, 5)
 
     col4, col5, col6 = st.columns(3)
