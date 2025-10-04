@@ -4,13 +4,9 @@ import numpy as np
 import gdown
 import joblib
 import os
-import joblib
 import matplotlib.pyplot as plt
 from datetime import timedelta
 from matplotlib.patches import Patch
-
-
-import streamlit as st
 
 # CSS para personalizar tablas
 st.markdown("""
@@ -29,7 +25,6 @@ st.markdown("""
     }
     </style>
     """, unsafe_allow_html=True)
-
 
 # ----------------------------
 # Sidebar Logo
@@ -51,11 +46,10 @@ GOOGLE_DRIVE_ID = "1Fmw782ET3fxqZphucD-PKrLFjFa6Xccq"
 URL = f"https://drive.google.com/uc?id={GOOGLE_DRIVE_ID}"
 
 if not os.path.exists(MODEL_FILE):
-    print("Downloading model from Google Drive...")
+    st.info("Downloading model from Google Drive...")
     gdown.download(URL, MODEL_FILE, quiet=False)
 
 rf = joblib.load(MODEL_FILE)
-#rf = joblib.load("final_rf_tuned_fast_model.pkl")
 preprocessor = joblib.load("preprocessor.pkl")
 output_columns = joblib.load("output_columns.pkl")
 
@@ -72,7 +66,9 @@ page = st.sidebar.radio("Navigate", ["📋 Session Builder", "👤 Player Variab
 # Initialize session_state
 # ----------------------------
 if "selected_team" not in st.session_state:
-    st.session_state.selected_team = "U23"
+    st.session_state.selected_team = "Select Team"
+if "selected_task_type" not in st.session_state:
+    st.session_state.selected_task_type = "Select Task Type"
 if "selected_date" not in st.session_state:
     st.session_state.selected_date = pd.to_datetime("2025-01-01")
 if "tasks" not in st.session_state:
@@ -90,23 +86,28 @@ if page == "📋 Session Builder":
     st.write("Create a training session with multiple tasks and automatically predict physical demands.")
 
     st.subheader("📋 Session Info")
-    teams = ["First Team", "B Team", "C Team", "U23", "U21", "U19"]
+    teams = ["First Team", "B Team", "C Team", "U23", "U19"]
+    team_options = ["Select Team"] + teams
+    current_team_index = team_options.index(st.session_state.selected_team) if st.session_state.selected_team in team_options else 0
+    selected_team_input = st.selectbox("Team", team_options, index=current_team_index)
+    if selected_team_input != "Select Team":
+        st.session_state.selected_team = selected_team_input
 
-    col_team, col_date = st.columns(2)
-    with col_team:
-        st.session_state.selected_team = st.selectbox("Team", teams, index=teams.index(st.session_state.selected_team))
-    with col_date:
-        st.session_state.selected_date = pd.to_datetime(st.date_input("Date", st.session_state.selected_date))
+    selected_date_input = st.date_input("Date", value=st.session_state.selected_date)
+    st.session_state.selected_date = pd.to_datetime(selected_date_input)
 
     # Task input form
     st.subheader("➕ Add a New Task")
+    task_types = ['Select Task Type', 'Possession', 'Conditioned Game', 'Transition', 'Passing Drill', 'Game / Warm-up']
+    current_task_index = task_types.index(st.session_state.selected_task_type) if st.session_state.selected_task_type in task_types else 0
+    selected_task_input = st.selectbox("Task Type", task_types, index=current_task_index)
+    if selected_task_input != "Select Task Type":
+        st.session_state.selected_task_type = selected_task_input
+
     col1, col2, col3 = st.columns(3)
     with col1:
-        task_type = st.selectbox("Task Type",
-                                 ['Possession', 'Conditioned Game', 'Transition', 'Passing Drill', 'Game / Warm-up'])
-    with col2:
         sets = st.number_input("Number of Sets", 1, 20, 1)
-    with col3:
+    with col2:
         set_duration = st.number_input("Set Duration (min)", 1, 60, 5)
 
     col4, col5, col6 = st.columns(3)
@@ -136,22 +137,27 @@ if page == "📋 Session Builder":
         st.metric("Total Duration (min)", total_duration)
 
     if st.button("✅ Add Task"):
-        st.session_state.tasks.append({
-            "Team": st.session_state.selected_team,
-            "Date": st.session_state.selected_date,
-            "TaskType": task_type,
-            "Length (m)": length,
-            "Width (m)": width,
-            "Players_Team1": players_team1,
-            "Players_Team2": players_team2,
-            "Jokers": jokers,
-            "Goalkeepers": goalkeepers,
-            "Total_Players": total_players,
-            "Density (m2/player)": density,
-            "Duration (min)": total_duration,
-            "Sets": sets
-        })
-        st.success(f"Task '{task_type}' added for {st.session_state.selected_team}. Total tasks: {len(st.session_state.tasks)}")
+        if st.session_state.selected_team == "Select Team":
+            st.error("❌ Please select a valid team.")
+        elif st.session_state.selected_task_type == "Select Task Type":
+            st.error("❌ Please select a valid task type.")
+        else:
+            st.session_state.tasks.append({
+                "Team": st.session_state.selected_team,
+                "Date": st.session_state.selected_date,
+                "TaskType": st.session_state.selected_task_type,
+                "Length (m)": length,
+                "Width (m)": width,
+                "Players_Team1": players_team1,
+                "Players_Team2": players_team2,
+                "Jokers": jokers,
+                "Goalkeepers": goalkeepers,
+                "Total_Players": total_players,
+                "Density (m2/player)": density,
+                "Duration (min)": total_duration,
+                "Sets": sets
+            })
+            st.success(f"Task '{st.session_state.selected_task_type}' added for {st.session_state.selected_team}. Total tasks: {len(st.session_state.tasks)}")
 
     # Show added tasks
     if st.session_state.tasks:
@@ -171,7 +177,6 @@ if page == "📋 Session Builder":
             if st.button(f"❌ Delete Task {idx}", key=delete_key):
                 st.session_state.tasks.pop(idx - 1)
                 st.rerun()
-
 
     # Calculate session
     if st.session_state.tasks and st.button("🚀 Calculate Session"):
@@ -230,7 +235,6 @@ if page == "📋 Session Builder":
             ax.set_xticklabels(session_percentage_plot.index)
             
             # Añadir leyenda
-            from matplotlib.patches import Patch
             legend_elements = [
                 Patch(facecolor='#084d9b', label='50-150%'),
                 Patch(facecolor='#B30808', label='<50% o >150%')
@@ -345,5 +349,3 @@ elif page == "📈 Weekly Progress":
             ax.legend(handles=legend_elements, loc="upper left")
 
             st.pyplot(fig)
-
-
