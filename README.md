@@ -65,8 +65,6 @@ The main goal is to minimize the gap between prescribed external training load a
  | `preprocessor.pkl` | Pickle file for preprocessing pipeline |
  | `synthetic_full_dataset.csv` | Sample dataset for testing (Obtained from Data_generation) |
 
- > ⚠️ **Note:** The trained model (`final_rf_tuned_fast_model.pkl`) is too large for GitHub and is automatically downloaded from Google Drive at runtime.
-
  ---
 
  ## Installation
@@ -127,7 +125,6 @@ The main goal is to minimize the gap between prescribed external training load a
  - scikit-learn  
  - joblib  
  - streamlit  
- - gdown
 
  *(Full list in `requirements.txt`)*
 
