@@ -61,6 +61,7 @@ The main goal is to minimize the gap between prescribed external training load a
  | `app.py` | Streamlit app for interactive predictions |
  | `feature_columns.pkl` | Pickle file storing model feature columns |
  | `output_columns.pkl` | Pickle file storing model output columns |
+ | `final_rf_tuned_fast_model.pkl` | Pickle file storing final model|
  | `preprocessor.pkl` | Pickle file for preprocessing pipeline |
  | `synthetic_full_dataset.csv` | Sample dataset for testing (Obtained from Data_generation) |
 
@@ -95,21 +96,6 @@ The main goal is to minimize the gap between prescribed external training load a
 
  ---
 
- ## Model Download
-
- The model file exceeds GitHub's file limit. The app automatically downloads it from Google Drive using **gdown**.
-
- - URL: [Google Drive link](https://drive.google.com/file/d/1Fmw782ET3fxqZphucD-PKrLFjFa6Xccq/view?usp=drive_link)  
- - gdown is included in `requirements.txt`.
-
- Alternatively, manually download the model and place it in the root folder:
-
- ```bash
- final_rf_tuned_fast_model.pkl
- ```
-
- ---
-
  ## Usage
 
  1. Launch the Streamlit app:
@@ -126,8 +112,7 @@ The main goal is to minimize the gap between prescribed external training load a
 
  ## Features
 
- - Interactive Streamlit web app  
- - Automated download of large model from Google Drive  
+ - Interactive Streamlit web app    
  - Complete preprocessing pipeline (`preprocessor.pkl`)  
  - Prediction outputs aligned with football conditional metrics  
  - Sample dataset for testing
