@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import gdown
 import joblib
 import os
 import matplotlib.pyplot as plt
@@ -32,26 +31,18 @@ st.markdown("""
 st.sidebar.image("Logo.jpg", width=110)
 
 # ----------------------------
-# Load model, scalers and preprocessor
+# Load model, scalers and preprocessor (local files only)
 # ----------------------------
-try:
-    import gdown
-except ImportError:
-    import subprocess
-    subprocess.check_call(["pip", "install", "gdown"])
-    import gdown
-
 MODEL_FILE = "final_rf_tuned_fast_model.pkl"
-GOOGLE_DRIVE_ID = "1Fmw782ET3fxqZphucD-PKrLFjFa6Xccq"
-URL = f"https://drive.google.com/uc?id={GOOGLE_DRIVE_ID}"
+PREPROCESSOR_FILE = "preprocessor.pkl"
+OUTPUT_COLUMNS_FILE = "output_columns.pkl"
 
-if not os.path.exists(MODEL_FILE):
-    st.info("Downloading model from Google Drive...")
-    gdown.download(URL, MODEL_FILE, quiet=False)
+if not os.path.exists(MODEL_FILE) or not os.path.exists(PREPROCESSOR_FILE) or not os.path.exists(OUTPUT_COLUMNS_FILE):
+    st.error("One or more model files are missing. Please ensure 'final_rf_tuned_fast_model.pkl', 'preprocessor.pkl', and 'output_columns.pkl' exist locally.")
 
 rf = joblib.load(MODEL_FILE)
-preprocessor = joblib.load("preprocessor.pkl")
-output_columns = joblib.load("output_columns.pkl")
+preprocessor = joblib.load(PREPROCESSOR_FILE)
+output_columns = joblib.load(OUTPUT_COLUMNS_FILE)
 
 # Historical dataset for comparisons
 historical_csv = "synthetic_full_dataset.csv"
