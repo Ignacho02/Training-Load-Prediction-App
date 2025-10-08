@@ -53,10 +53,10 @@ The main goal is to minimize the gap between prescribed external training load a
  | Folder / File | Description |
  |---------------|-------------|
  | `.gitattributes` | Git configuration file for attributes |
- | `Data_generation/` | Scripts to generate synthetic or processed datasets |
- | `Final_model_deployment/` | Deployment scripts and artifacts (Most optimal tuned Random Forest model)|
+ | `Data_generation.ipynb` | Scripts to generate synthetic or processed datasets |
+ | `Final_model_deployment.ipynb` | Deployment scripts and artifacts (Most optimal tuned Random Forest model)|
  | `Logo.jpg` | Personal logo |
- | `Modelling/` | EDA, feature engineering, and model development scripts |
+ | `Modelling.ipynb` | EDA, feature engineering, and model development scripts |
  | `README.md` | This file |
  | `app.py` | Streamlit app for interactive predictions |
  | `feature_columns.pkl` | Pickle file storing model feature columns |
