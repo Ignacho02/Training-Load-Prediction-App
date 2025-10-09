@@ -61,9 +61,6 @@ The main goal is to minimize the gap between prescribed external training load a
  | `final_rf_tuned_fast_model.pkl` | Pickle file storing final model (from Final_model_deployment.ipynb)|
  | `preprocessor.pkl` | Pickle file for preprocessing pipeline (from Final_model_deployment.ipynb) |
  | `app.py` | Streamlit app for interactive predictions |
- | `Logo.jpg` | Personal logo |
- |  `.gitattributes` | Git configuration file for attributes |
- | `README.md` | This file |
 
  ---
 
