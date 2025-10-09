@@ -52,18 +52,18 @@ The main goal is to minimize the gap between prescribed external training load a
 
  | Folder / File | Description |
  |---------------|-------------|
- | `.gitattributes` | Git configuration file for attributes |
  | `Data_generation.ipynb` | Scripts to generate synthetic or processed datasets |
- | `Final_model_deployment.ipynb` | Deployment scripts and artifacts (Most optimal tuned Random Forest model)|
- | `Logo.jpg` | Personal logo |
- | `Modelling.ipynb` | EDA, feature engineering, and model development scripts |
- | `README.md` | This file |
- | `app.py` | Streamlit app for interactive predictions |
- | `feature_columns.pkl` | Pickle file storing model feature columns |
- | `output_columns.pkl` | Pickle file storing model output columns |
- | `final_rf_tuned_fast_model.pkl` | Pickle file storing final model|
- | `preprocessor.pkl` | Pickle file for preprocessing pipeline |
  | `synthetic_full_dataset.csv` | Sample dataset for testing (Obtained from Data_generation) |
+ | `Modelling.ipynb` | EDA, feature engineering, and model development scripts |
+ | `Final_model_deployment.ipynb` | Deployment scripts and artifacts saving for the Streamlit app |
+ | `feature_columns.pkl` | Pickle file storing model feature columns (from Final_model_deployment.ipynb) |
+ | `output_columns.pkl` | Pickle file storing model output columns (from Final_model_deployment.ipynb) |
+ | `final_rf_tuned_fast_model.pkl` | Pickle file storing final model (from Final_model_deployment.ipynb)|
+ | `preprocessor.pkl` | Pickle file for preprocessing pipeline (from Final_model_deployment.ipynb) |
+ | `app.py` | Streamlit app for interactive predictions |
+ | `Logo.jpg` | Personal logo |
+ |  `.gitattributes` | Git configuration file for attributes |
+ | `README.md` | This file |
 
  ---
 
